@@ -28,13 +28,13 @@ git clone https://github.com/iammrmehedi/rEFInd-Regular-Dark.git
 
  4. To enable the theme add the following line at the end of `refind.conf`.
 
- ```text
+ ```nginx
 include themes/rEFInd-Regular-Dark/theme.conf
  ```
 
  Here's an example menuentry configuration (from the screenshot)
 
-```text
+```nginx
 menuentry "Windows_11" {
    icon /EFI/refind/themes/rEFInd-Regular-Dark/icons/os_win11.png
    loader /EFI/Microsoft/Boot/bootmgfw.efi
