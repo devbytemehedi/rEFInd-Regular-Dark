@@ -1,7 +1,7 @@
 # rEFInd Regular Dark
 
 [rEFInd](http://www.rodsbooks.com/refind/) is an easy to use boot manager for UEFI
-based systems. This is a a simplistic clean and minimal theme for [rEFInd](https://www.rodsbooks.com/refind/index.html)
+based systems and this is a simplistic clean and minimal theme.
 
 >This forked theme is modified dark version of [refind-theme-regular](https://github.com/bobafetthotmail/refind-theme-regular) by [bobafetthotmail](https://github.com/bobafetthotmail).
 >>The original theme was [refind-theme-regular](https://github.com/munlik/refind-theme-regular) by [munlik](https://github.com/munlik).
