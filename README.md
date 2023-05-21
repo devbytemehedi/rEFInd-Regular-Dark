@@ -1,88 +1,52 @@
-# rEFInd theme Regular
+# rEFInd Regular Dark
 
-A simplistic clean and minimal theme for [rEFInd](https://www.rodsbooks.com/refind/index.html)
+[rEFInd](http://www.rodsbooks.com/refind/) is an easy to use boot manager for UEFI
+based systems. This is a a simplistic clean and minimal theme for [rEFInd](https://www.rodsbooks.com/refind/index.html)
 
-NOTE: this is a fork of [munlik's theme](https://github.com/munlik/refind-theme-regular) since he seems to have abandoned his project, he didn't answer to (my) PRs on github for years.
+>This forked theme is modified dark version of [refind-theme-regular](https://github.com/bobafetthotmail/refind-theme-regular) by [bobafetthotmail](https://github.com/bobafetthotmail).
+>>The original theme was [refind-theme-regular](https://github.com/munlik/refind-theme-regular) by [munlik](https://github.com/munlik).
 
- **press F10 to take screenshot**
- 
-(default settings)
-![Screenshot 01](https://raw.githubusercontent.com/bobafetthotmail/refind-theme-regular/master/src/white_theme.png )
+![rEFInd-Regular-Dark](https://raw.githubusercontent.com/iammrmehedi/rEFInd-Regular-Dark/main/screenshot.webp)
 
-(dark theme selected)
-![Screenshot 02](https://raw.githubusercontent.com/bobafetthotmail/refind-theme-regular/master/src/dark_theme.png)
+## Installation
 
+Fork this repo to you local directory by running the following command in terminal.
 
+```bash
+git clone https://github.com/iammrmehedi/rEFInd-Regular-Dark.git
+```
 
-### Installation [Quick]:
+## Usage
 
-1. Just paste this command in your terminal and enter your choices.
-   ```
-   sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/bobafetthotmail/refind-theme-regular/master/install.sh)"
-   ```
-2. To further adjust icon size, font size, background color and selector color edit `/boot/efi/EFI/refind/themes/refind-theme-regular/theme.conf` as root/SuperUser.
+ 1. Locate your refind EFI directory. This is commonly `/boot/EFI/refind`
+    though it will depend on where you mount your ESP and where rEFInd is
+    installed. `fdisk -l` and `mount` may help.
 
-### Installation [Manual]:
+ 2. Create a folder called `themes` inside it, if it doesn't already exist
 
-1. Clone git repository to your `$HOME` directory.
-   ```
-   git clone https://github.com/bobafetthotmail/refind-theme-regular.git
-   ```
+ 3. Clone this repository into the `themes` directory.
 
-2. Remove unused directories and files.
-   ```
-   sudo rm -rf refind-theme-regular/{src,.git}
-   ```
-   ```
-   sudo rm refind-theme-regular/install.sh
-   ```
+ 4. To enable the theme add the following line at the end of `refind.conf`.
 
-3. Locate refind directory under EFI partition. For most Linux based system is commonly `/boot/efi/EFI/refind/`. Copy theme directory to it. Here, we will copy it to `themes` subdirectory inside refind.
+ ```text
+include themes/rEFInd-Regular-Dark/theme.conf
+ ```
 
-   **Important:** Delete older installed versions of this theme before you proceed any further.
+ Here's an example menuentry configuration (from the screenshot)
 
-   ```
-   sudo rm -rf /boot/efi/EFI/refind/{regular-theme,refind-theme-regular}
-   sudo rm -rf /boot/efi/EFI/refind/themes/{regular-theme,refind-theme-regular}
-   ```
-   ```
-   sudo mkdir -p /boot/efi/EFI/refind/themes
-   ```
-   ```
-   sudo cp -r refind-theme-regular /boot/efi/EFI/refind/themes/
-   ```
+```text
+menuentry "Windows_11" {
+   icon /EFI/refind/themes/rEFInd-Regular-Dark/icons/os_win11.png
+   loader /EFI/Microsoft/Boot/bootmgfw.efi
+}
 
-4. To adjust icon size, font size, background color and selector color edit `theme.conf`.
-   ```
-   sudo vi /boot/efi/EFI/refind/themes/refind-theme-regular/theme.conf
-   ```
+menuentry "Debian" {
+    icon /EFI/refind/themes/rEFInd-Regular-Dark/icons/os_debian.png
+    volume 53f60ca1-c118-4885-b66b-3f29039e5a43
+    loader /boot/vmlinuz-6.1.0-9-amd64
+    initrd /boot/initrd.img-6.1.0-9-amd64
+    options "root=UUID=60ebb4c2-e9e3-4ba4-a0a8-f662d51d8b4d ro quiet nomodeset mitigations=off "
+}
+```
 
-5. To enable the theme add `include themes/refind-theme-regular/theme.conf` at the end of `refind.conf`, and comment out or delete any other themes you might have installed.
-   ```
-   sudo vi /boot/efi/EFI/refind/refind.conf
-
-   ```
-
-**NOTE**: If you're not getting your full resolution or having color issues, then try disabling the CSM in your UEFI settings.
-
-### Contribute new icons:
-
-0. Fork this repository on github and then git clone your fork of this repository in your Linux system.
-
-1. The icons must be in `svg` format to allow easy generation of icons at any scale. Canvas size must have width and height 128 px for OS icons, or 48 px for tool icons. The actual icon in the svg file should roughly fit in a square with a side of 96 px or 20 px (for OS and tool icons, respectively). Inkscape is a good program to create and work with svg files.
-
-2. Refind uses the file name to select the right icon, so icons for Linux OS must have the correct OS name from that distro's /etc/os-release file "ID" or ID_LIKE" entries, for example if ID=cachyos the icon name becomes os_cachyos.svg
-
-3. Copy the svg file in `/src/svg/big` or `/src/svg/small` (depending on what is more appropriate) and rename them to be consistent with others.
-
-4. Install inkskape and optipng in your linux system as they will be needed to process the icons by the next step.
-
-5. `cd` in the `./src` directory and run the script `./render_bitmap.sh`, which will process the svg files and generate the png files at various sizes.
-
-6. Copy the `png` icons you generated from their `/src/bitmap` subfolder into the appropriate `/icons` subfolders for their size by running `./copy-bitmap.sh`.
-
-7. Commit your changes, upload to your fork and then open a PR.
-
-**More information**
-
-[rEFInd](http://www.rodsbooks.com/refind/) The official rEFInd website
+Entries that are autodetected should also show the proper icons.
